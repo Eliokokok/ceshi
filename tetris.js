@@ -104,7 +104,7 @@ class Piece {
         checkLines();
         currentPiece = nextPiece;
         nextPiece = createNewPiece();
-        if (currentPiece.checkCollision()) {
+        if (currentPiece.y === 0 && currentPiece.checkCollision()) {
             gameOver();
         }
     }
@@ -187,6 +187,7 @@ function startGame() {
     score = 0;
     level = 1;
     lines = 0;
+    isPaused = false;
     updateScore();
     
     // 创建初始方块
@@ -198,9 +199,7 @@ function startGame() {
     gameLoop = setInterval(() => {
         if (!isPaused) {
             if (!currentPiece.moveDown()) {
-                if (currentPiece.y <= 0) {
-                    gameOver();
-                }
+                draw();
             }
             draw();
         }
